@@ -20,11 +20,6 @@ class WorkoutRepository {
       return response.results?.map((po) => Workout.fromParse(po)).toList() ?? [];
     } on Exception catch (_) {
       throw Exception();
-      // return Future.error(
-      //   // ParseErrors.getDescription(
-      //     ecode
-      //   // )
-      // );
     }
   }
 }

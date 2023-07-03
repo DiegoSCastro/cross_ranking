@@ -27,12 +27,10 @@ class Workout {
 
   ParseObject toParse() {
     final workoutDay = ParseObject('workoutDay')
-          ..set<String?>('objectId', id)
-          ..set<DateTime?>('date', date)
-          ..set<String>('title', title)
-          ..set<String>('description', description)
-        // ..set<List<Record>>('records', records)
-        ;
+      ..set<String?>('objectId', id)
+      ..set<DateTime?>('date', date)
+      ..set<String>('title', title)
+      ..set<String>('description', description);
     return workoutDay;
   }
 }

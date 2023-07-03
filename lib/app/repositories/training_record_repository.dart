@@ -21,11 +21,6 @@ class TrainingRecordRepository {
       return response.results?.map((po) => TrainingRecord.fromParse(po)).toList() ?? [];
     } on Exception catch (_) {
       throw Exception();
-      // return Future.error(
-      //   // ParseErrors.getDescription(
-      //     ecode
-      //   // )
-      // );
     }
   }
 }

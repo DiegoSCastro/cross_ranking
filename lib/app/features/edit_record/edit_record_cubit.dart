@@ -38,14 +38,6 @@ class EditRecordCubit extends Cubit<EditRecordState> {
     }
   }
 
-  // (Category? value) {
-  // setState(() {
-  // if (value != null) {
-  // selectedCategory = value;
-  // widget.onChanged(value);
-  // }
-  // });
-  // },
   void onChangeCategory(Category? category) {
     if (category != null) {
       emit(EditRecordLoaded(selectedCategory: category));
