@@ -13,7 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
       HomeLoading(),
     );
     try {
-      final workouts = await WorkoutDayRepository.getAllWorkouts();
+      final workouts = await WorkoutRepository.getAllWorkouts();
       emit(
         HomeLoaded(workouts: workouts),
       );

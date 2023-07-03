@@ -9,7 +9,7 @@ class EditWorkoutLoading extends EditWorkoutState {}
 
 class EditWorkoutLoaded extends EditWorkoutState {
   final DateTime date;
-  final WorkoutDay? workoutDay;
+  final Workout? workoutDay;
 
   EditWorkoutLoaded({
     required this.date,

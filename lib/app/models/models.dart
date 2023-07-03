@@ -1,3 +1,4 @@
 //GENERATED BARREL FILE
-export 'record.dart';
-export 'workout_day.dart';
+export 'trainig_record.dart';
+export 'workout.dart';
+export 'enum/enum.dart';

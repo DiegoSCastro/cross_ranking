@@ -1,22 +1,22 @@
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-class WorkoutDay {
+class Workout {
   final String? id;
   final DateTime? date;
   final String title;
   final String description;
-  final List<Record> records;
+  final List<Record>? records;
 
-  WorkoutDay({
+  Workout({
     this.id,
     required this.date,
     required this.title,
     required this.description,
-    required this.records,
+    this.records,
   });
 
-  factory WorkoutDay.fromParse(ParseObject object) {
-    return WorkoutDay(
+  factory Workout.fromParse(ParseObject object) {
+    return Workout(
       id: object.get<String?>('objectId'),
       date: object.get<DateTime?>('date'),
       title: object.get<String>('title') ?? '',

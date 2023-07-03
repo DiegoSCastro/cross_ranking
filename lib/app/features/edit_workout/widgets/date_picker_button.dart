@@ -1,6 +1,6 @@
+import 'package:cross_ranking/app/app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DatePickerButton extends StatelessWidget {
   final DateTime labelDate;
@@ -49,9 +49,7 @@ class DatePickerButton extends StatelessWidget {
               );
             });
       },
-      child: Text(
-        DateFormat('dd/MM/yyyy').format(labelDate),
-      ),
+      child: Text(labelDate.toDateString()),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cross_ranking/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Matilha Ranking'),
+        centerTitle: true,
       ),
       body: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
@@ -38,19 +38,59 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
           if (state is HomeLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
           if (state is HomeLoaded) {
-            // return const Center(
-            //   child: Text('Loaded'),
-            // );
             if (state.workouts.isEmpty) {
-              return Center(child: Text('Vazio'));
+              return const Center(
+                child: Text('Vazio'),
+              );
             }
-            return ListView.builder(itemBuilder: (context, index) {
-              final item = state.workouts[index];
-              return Text(item.title);
-            });
+            return ListView.builder(
+                itemCount: state.workouts.length,
+                itemBuilder: (context, index) {
+                  final workout = state.workouts[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => WorkoutDetailScreen(workout: workout),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (workout.date != null)
+                            Text(
+                              workout.date?.toDateString() ?? '',
+                            ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Text(workout.title),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditWorkoutScreen(
+                                    workoutDay: workout,
+                                  ),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.edit),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                });
           }
           if (state is HomeError) {
             return const Center(

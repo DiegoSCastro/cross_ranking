@@ -15,14 +15,20 @@ class CrossRankingApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => EditWorkoutCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => WorkoutDetailCubit(),
+        ),
+        BlocProvider(
+          create: (context) => EditRecordCubit(),
+        ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Cross Ranking',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromRGBO(0, 20, 100, 1),
+            seedColor: AppColors.primary,
           ),
           useMaterial3: true,
         ),

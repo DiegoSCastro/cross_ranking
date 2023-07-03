@@ -1,2 +1,3 @@
 //GENERATED BARREL FILE
-export 'workout_day_repository.dart';
+export 'workout_repository.dart';
+export 'training_record_repository.dart';

@@ -8,11 +8,10 @@ part 'edit_workout_state.dart';
 class EditWorkoutCubit extends Cubit<EditWorkoutState> {
   EditWorkoutCubit() : super(EditWorkoutInitial());
 
-  Future<void> loadData(WorkoutDay? workoutDay) async {
+  Future<void> loadData(Workout? workoutDay) async {
     emit(
       EditWorkoutLoading(),
     );
-    await Future.delayed(const Duration(seconds: 2));
     try {
       emit(
         EditWorkoutLoaded(
@@ -33,12 +32,12 @@ class EditWorkoutCubit extends Cubit<EditWorkoutState> {
     }
   }
 
-  Future<void> saveWorkoutDay(WorkoutDay workoutDay) async {
+  Future<void> saveWorkoutDay(Workout workoutDay) async {
     emit(
       EditWorkoutLoading(),
     );
     try {
-      await WorkoutDayRepository.saveWorkoutDay(workoutDay);
+      await WorkoutRepository.saveWorkout(workoutDay);
       emit(
         EditWorkoutSuccess(),
       );

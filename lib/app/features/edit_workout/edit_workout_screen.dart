@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:intl/intl.dart';
 
 import '../../app.dart';
 
 class EditWorkoutScreen extends StatefulWidget {
-  final WorkoutDay? workoutDay;
+  final Workout? workoutDay;
   const EditWorkoutScreen({
     super.key,
     this.workoutDay,
@@ -18,10 +15,17 @@ class EditWorkoutScreen extends StatefulWidget {
 }
 
 class _EditWorkoutScreenState extends State<EditWorkoutScreen> {
+  late final EditWorkoutCubit cubit;
+  late final TextEditingController titleEC;
+  late final TextEditingController descriptionEC;
+
   @override
   void initState() {
     super.initState();
-    context.read<EditWorkoutCubit>().loadData(widget.workoutDay);
+    cubit = context.read<EditWorkoutCubit>();
+    cubit.loadData(widget.workoutDay);
+    titleEC = TextEditingController(text: widget.workoutDay?.title);
+    descriptionEC = TextEditingController(text: widget.workoutDay?.description);
   }
 
   @override
@@ -29,13 +33,18 @@ class _EditWorkoutScreenState extends State<EditWorkoutScreen> {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<EditWorkoutCubit, EditWorkoutState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            if (state is EditWorkoutInitial) {
-              return const Center(
-                child: Text('initialState'),
+          listener: (context, state) {
+            if (state is EditWorkoutSuccess) {
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Treino salvo com sucesso'),
+                ),
               );
+              context.read<HomeCubit>().loadData();
             }
+          },
+          builder: (context, state) {
             if (state is EditWorkoutLoading) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -49,16 +58,19 @@ class _EditWorkoutScreenState extends State<EditWorkoutScreen> {
                       children: [
                         DatePickerButton(
                           labelDate: state.date,
-                          onDateTimeChanged: context.read<EditWorkoutCubit>().setDate,
+                          onDateTimeChanged: cubit.setDate,
                           initialDateTime: state.date,
                         ),
                         TextFormField(
+                          controller: titleEC,
                           decoration: const InputDecoration(
                             label: Text('Titulo'),
                           ),
                         ),
                         TextFormField(
-                          maxLines: 4,
+                          controller: descriptionEC,
+                          minLines: 4,
+                          maxLines: 15,
                           decoration: const InputDecoration(
                             label: Text('Descrição'),
                           ),
@@ -67,7 +79,16 @@ class _EditWorkoutScreenState extends State<EditWorkoutScreen> {
                           height: 40,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            cubit.saveWorkoutDay(
+                              Workout(
+                                id: widget.workoutDay?.id,
+                                date: state.date,
+                                title: titleEC.text,
+                                description: descriptionEC.text,
+                              ),
+                            );
+                          },
                           child: const Text(
                             'Salvar',
                           ),
