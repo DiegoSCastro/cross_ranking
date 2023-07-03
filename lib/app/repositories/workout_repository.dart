@@ -12,7 +12,7 @@ class WorkoutRepository {
 
   static Future<List<Workout>> getAllWorkouts() async {
     final queryBuilder = QueryBuilder<ParseObject>(ParseObject('workoutDay'));
-    queryBuilder.orderByAscending('date');
+    queryBuilder.orderByDescending('date');
 
     try {
       final response = await queryBuilder.query();
