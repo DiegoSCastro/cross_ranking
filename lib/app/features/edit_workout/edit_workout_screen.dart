@@ -31,6 +31,7 @@ class _EditWorkoutScreenState extends State<EditWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: BlocConsumer<EditWorkoutCubit, EditWorkoutState>(
           listener: (context, state) {
@@ -50,7 +51,8 @@ class _EditWorkoutScreenState extends State<EditWorkoutScreen> {
             }
             if (state is EditWorkoutLoaded) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
                 child: Form(
                   child: Center(
                     child: Column(
